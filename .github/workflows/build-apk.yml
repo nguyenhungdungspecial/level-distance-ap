@@ -1,0 +1,36 @@
+name: Build APK with EAS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: |
+          npm install -g expo-cli eas-cli
+          npm install
+
+      - name: 🏗️ Build APK using EAS
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          eas build --platform android --profile preview --non-interactive --local
+
+      - name: 📦 Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: dist/*.apk
