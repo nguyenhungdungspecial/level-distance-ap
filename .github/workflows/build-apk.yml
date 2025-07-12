@@ -7,33 +7,19 @@ on:
 
 jobs:
   build:
-    name: 📦 Build APK
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🧾 Checkout source code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: 🔧 Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: 📦 Install dependencies
-        run: |
-          npm install -g eas-cli
-          npm install
+      - name: Install dependencies
+        run: npm install
 
-      - name: 🔨 Build APK with EAS
+      - name: Build APK
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          eas build --platform android --profile preview --non-interactive --local
-          mkdir -p dist
-          find . -name "*.apk" -exec cp {} dist/ \;
-
-      - name: 📤 Upload APK file
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.apk
-          path: dist/*.apk
+        run: eas build --platform android --profile preview --non-interactive
