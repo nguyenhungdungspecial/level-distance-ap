@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "level-distance-app",
+    "name": "Level Distance App",
     "slug": "level-distance-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,12 +12,18 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.hungdung.levelap",
+      "jsEngine": "jsc",
+      "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "package": "com.hungdung.levelap"
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
